@@ -1,0 +1,509 @@
+1.      ===> wait for implements
+Cronjob 时间确认 修改Impex
+Site / global 这周
+
+2.
+usergroup 是否来得及加入 --maybe ok.
+
+3.
+确认无法完成的impex列表  ==>
+
+4.
+创建local.properties   ==> done
+
+5. extension and local.properties  ==> created, 等待配置更改
+Node-FE-1
+Node-CN-1
+Node-FE-2
+Node-BE
+
+6.merge master  ==>todo
+
+
+7.生产账号   ==> wait
+
+
+fo@expresscw.com
+
+8.测试生产的登录环境  ==> wait account
+
+9.cronjob  ==>
+指定Node运行Cronjob  
+默认不运行interface的cronjob?
+
+10.同步的配置更改   ==> 部署后,手动
+
+11.如何检查Deploy是否成功   ==> 浏览页面
+
+12.
+15~17号做数据准备  ==>
+
+
+=============================
+
+13. SLI MENU LOGING
+
+89786 ===
+=========prepare for production==============
+
+task.excluded.cluster.ids=1,2,3
+
+remove BTG extensions from localextensions.xml if personalisation is not required
+set log4j level in local.properties
+
+storefront.resourceBundle.cacheSeconds=-1
+tenant.restart.on.connection.error=false
+system.unlocking.disabled = true
+
+productcockpit.default.login=
+productcockpit.default.password=
+cmscockpit.default.login=
+cmscockpit.default.password=
+cscockpit.default.login=
+cscockpit.default.password=
+hmc.default.login=
+hmc.default.password=
+
+addonfilter.active=false
+
+showStorefrontDebugInfo=false
+storefront.show.debug.info=false
+
+-XX:+UseLargePages 
+-XX:+UseTLAB
+-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -verbose:gc -Xloggc:gc.log
+-XX:+UseG1GC
+
+Reject access to risky extensions like virtualjdbc etc. (Setup)
+
+
+==============FROM LUCA
+-server
+-Djava.awt.headless=true
+-Xss512K -Xms8G -Xmx8G
+-XX:MaxMetaSpaceSize=300M
+
+-XX:+UseConcMarkSweepGC  
+###激活cms收集器
+
+-XX:+CMSParallelRemarkEnabled
+###降低标记停顿
+
+-XX:+CMSScavengeBeforeRemark
+#CMS remark阶段前会触发一次minor GC
+
+-XX:+ScavengeBeforeFullGC
+#Full GC前调用Young GC
+
+-XX:CMSInitiatingOccupancyFraction=70  
+##代表老年代堆空间的使用率, 意味着第一次CMS垃圾收集会在老年代被占用70%时被触发, 大多数情况下，JVM比我们自己能作出更好的垃圾收集决策
+-XX:+UseFastAccessorMethods   
+###在使用多层编译模式时，如果UseFastAccessorMethods/UseFastEmptyMethods是开着的，有些多态方法调用点的性能反而会显著下降
+
+-XX:+OptimizeStringConcat
+#
+
+-XX:+DisableExplicitGC
+-Xloggc:/app/hybris/log/tomcat/gc.log
+-verbose:gc
+-XX:+PrintGCDetails
+-XX:+PrintGCDateStamps
+-XX:+PrintGCTimeStamps
+-XX:+UseGCLogFileRotation
+-XX:NumberOfGCLogFiles=5
+-XX:GCLogFileSize=10M
+-Djava.net.preferIPv4Stack=true
+-Djava.net.preferIPv4Addresses=true
+
+
+优化:
+1. 修改URLTranslationUtil.toMap(urlReplacedChars)方法, 避免每次访问都得生成Map
+2. 修改AbstractCheckoutStepController, 删除共通的getCountryDataMap(), getCountries() 该方法是OOTB, 每次都会耗时200ms
+/en/venice/checkout/multi/summary/placeOrder
+	placeOrder 		2179
+		Db (total) 				609
+		validateCart			130
+		placeOrder 				547
+		placeOrder  			888
+			calculateTotals							288
+			commit()								78
+			SubmitOrderEventListener.onSiteEvent	235
+			afterPlaceOrder 						100
+/en/venice/login/checkout/guest
+
+13764522569
+广中西路777弄启迪大厦12楼
+
+
+
+https://marathon.jd.com/seckill/seckill.action?skuId=4461470&num=1&rid=1488852798#none
+
+consignee_radio_new
+consignee_name
+consignee_province   2
+consignee_city   2820
+consignee_county  51972
+consigneeParam.address
+consignee_mobile
+
+btn-submit
+<a href="#none" class="btn-submit" onclick="save_Consignee()"><span id="saveConsigneeTitleDiv">保存收货人信息</span></a>
+
+
+<button type="submit" class="checkout-submit" id="order-submit" onclick="javascript:submitOrder();">
+                                    提交订单
+                                    <b></b>
+                            </button>
+
+#### qiang button ####
+//divide.jd.com/user_routing?skuId=4461470&sn=533cedd7cb6185cee198d71a4f688063&from=pc
+
+https://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/unit/base/1.0.0/base.js,jdf/1.0.0/ui/ui/1.0.0/ui.js:formatted
+
+show (??jdf/lib/jquer…formatted:3771)
+show (??core.js,befor…e.js,main.js:4)
+h (qiang.js:2)
+setBtn (qiang.js:2)
+setKO (qiang.js:2)
+success (qiang.js:2)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+#### disable class ####
+addClass (??jdf/lib/jquer…formatted:1166)
+disabled (??core.js,befor…e.js,main.js:4)
+i (qiang.js:2)
+setBtn (qiang.js:2)
+setKO (qiang.js:2)
+success (qiang.js:2)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+
+
+
+1:wrpMnO5z7h9COsiHs1spIQ==vE0S+M1GhzwwLIw7YuHGmQ5cADSj72UiQFi9AjT4ozp06cry++sPiBxhEjDzoViOQP558C2Nx26E
+ ic5jZ4mU2g==
+
+	
+JSESSIONID=7DB1FAD88DCB7BD14C7D4F5EC9789123; Path=/cmscockpit/; Secure; HttpOnly
+LoginToken="1:wrpMnO5z7h9COsiHs1spIQ==vE0S+M1GhzwwLIw7YuHGmQ5cADSj72UiQFi9AjT4ozp06cry++sPiBxhEjDzoViOQP558C2Nx26E ic5jZ4mU2g=="; Version=1; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/cmscockpit; Secur
+
+
+"1:vPgl6bbqB0JZ8NnKfe4xKA==vE0S+M1GhzwwLIw7YuHGmQ5cADSj72UiQFi9AjT4ozp06cry++sPiBxhEjDzoViOQP558C2Nx26E ic5jZ4mU2g=="
+"1:wrpMnO5z7h9COsiHs1spIQ==vE0S+M1GhzwwLIw7YuHGmQ5cADSj72UiQFi9AjT4ozp06cry++sPiBxhEjDzoViOQP558C2Nx26E ic5jZ4mU2g=="
+
+
+
+attr (??jdf/lib/jquer…formatted:1294)
+access (??jdf/lib/jquer…:formatted:668)
+attr (??jdf/lib/jquer…formatted:1130)
+(anonymous) (??onekey.js,res…s,bigouma.js:6)
+each (??jdf/lib/jquer…:formatted:581)
+each (??jdf/lib/jquer…:formatted:407)
+setBtnText (??onekey.js,res…s,bigouma.js:6)
+checkState (??onekey.js,res…s,bigouma.js:6)
+set (??onekey.js,res…s,bigouma.js:6)
+success (??onekey.js,res…s,bigouma.js:6)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+
+####URL create###
+attr (??jdf/lib/jquer…formatted:1294)
+access (??jdf/lib/jquer…:formatted:668)
+attr (??jdf/lib/jquer…formatted:1130)
+disabled (??onekey.js,res…s,bigouma.js:6)
+checkState (??onekey.js,res…s,bigouma.js:6)
+set (??onekey.js,res…s,bigouma.js:6)
+success (??onekey.js,res…s,bigouma.js:6)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+
+attr (??jdf/lib/jquer…formatted:1294)
+access (??jdf/lib/jquer…:formatted:668)
+attr (??jdf/lib/jquer…formatted:1130)
+enabled (??core.js,befor…e.js,main.js:4)
+h (qiang.js:formatted:155)
+setBtn (qiang.js:formatted:171)
+setKO (qiang.js:formatted:122)
+success (qiang.js:formatted:70)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+
+
+=============================
+改变class
+removeClass (??jdf/lib/jquer…formatted:1188)
+enabled (??core.js,befor…e.js,main.js:4)
+h (qiang.js:2)
+setBtn (qiang.js:2)
+setKO (qiang.js:2)
+success (qiang.js:2)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+//divide.jd.com/user_routing?skuId=3846673&sn=4193b84fd43d1553a07412b5a818611d&from=pc
+
+#### 加入HREF#######
+attr (??jdf/lib/jquer…formatted:1294)
+access (??jdf/lib/jquer…:formatted:668)
+attr (??jdf/lib/jquer…formatted:1130)
+enabled (??core.js,befor…:formatted:551)
+h (qiang.js:formatted:155)
+setBtn (qiang.js:formatted:171)
+setKO (qiang.js:formatted:122)
+success (qiang.js:formatted:70)
+resolveWith (??jdf/lib/jquer…:formatted:750)
+w (??jdf/lib/jquer…formatted:3475)
+d.onload.d.onreadystatechange (??jdf/lib/jquer…formatted:3678)
+
+
+
+https://itemko.jd.com/itemShowBtn?skuId=3867761&callback=jQuery2002005&_=1489112267746
+jQuery2002005({"type":"3","state":"12","url":"//divide.jd.com/user_routing?skuId=3867761&sn=9e0708f12c0681973466aeb903377b72&from=pc"})
+
+返回抢购地址
+https://itemko.jd.com/itemShowBtn?skuId=3846673&callback=jQuery2002005&_=1489043539320
+jQuery2002005({"type":"3","state":"12","url":"//divide.jd.com/user_routing?skuId=3846673&sn=4193b84fd43d1553a07412b5a818611d&from=pc"})
+
+jQuery2002005({"type":"3","state":"11","url":""})
+
+https://static.360buyimg.com/item/main/1.0.33/js/qiang.js
+
+#### 调用了
+function SetNotifyByNoneStock(a, b) {
+    if (choose_btn_gift && 0 != choose_btn_gift.length || (choose_btn_gift = $("#choose-btn-gift .btn-gift")),
+    pageConfig.product.YuShou = !1,
+    34 == a || 0 == a || 1 != pageConfig.product.warestatus || 938747 == pageConfig.product.skuid || 938749 == pageConfig.product.skuid || 1292571 == pageConfig.product.skuid || 1292564 == pageConfig.product.skuid || 1292563 == pageConfig.product.skuid) {
+        pageConfig && pageConfig.product && (pageConfig.product.isStock = !1),
+        $("#choose-btn-append,#choose-btn-gift").addClass("disabled").removeClass("choose-btn-append-lite"),
+        choose_btn_gift.attr("href") && choose_btn_gift.attr("href1", choose_btn_gift.attr("href")).attr("href", "#none"),
+        $("#product-intro").addClass("product-intro-noitem"),
+        pageConfig.M_easyBtn.hide(),
+        $.divide_button.hide();
+        function d() {
+            return ""
+        }
+        $.append_button.length > 0 && ($.append_button.show(),
+        "#none" != $.append_button.attr("href") && ($.pbuyurl = $.append_button.attr("href")),
+        $.append_button.attr("href", "#none").attr("onclick", "").attr("title", d()).unbind("click")),
+        $("#choose-btn-subsidy").hide(),
+        $.notice_button = $("#choose-btn-notice"),
+        showNoticeWhenNoStock() ? $.notice_button.show() : $.notice_button.hide(),
+        (b && b.indexOf("YuShou") > -1 || checkApecialAttr("YuShou") || checkApecialAttr("isKO")) && (pageConfig.product.YuShou = !0,
+        window.Qiang || 12632 === pageConfig.product.cat[1] || seajs.use("APP_ROOT/js/qiang"))
+    } else if (pageConfig.product.isStock = !0,
+    "#none" == choose_btn_gift.attr("href") && choose_btn_gift.attr("href1") && choose_btn_gift.attr("href", choose_btn_gift.attr("href1")),
+    $("#choose-btn-subsidy .btn-subsidies").length > 0 && $("#choose-btn-append").addClass("choose-btn-append-lite"),
+    $("#product-intro").removeClass("product-intro-itemover product-intro-noitem"),
+    $("#noitem-related-list").remove(),
+    pageConfig.M_easyBtn.show(),
+    $.divide_button.show(),
+    G.isPop || $.notice_button.hide(),
+    $.append_button.length > 0 && ($("#choose-type .item").length > 0 ? $.append_button.attr("onclick", "").attr("title", "").unbind("click").click(function() {
+        mark(pageConfig.product.skuid, 2)
+    }) : pageConfig.M_addToCart.enabled(getBuyUrl(pageConfig.product.skuid))),
+    $(".nav-minicart-btn").length > 0 && $(".nav-minicart-btn").show(),
+    $("#choose-btn-subsidy").show(),
+    b && b.indexOf("YuShou") > -1 || checkApecialAttr("YuShou") || checkApecialAttr("isKO"))
+        pageConfig.product.YuShou = !0,
+        window.Qiang || 12632 === pageConfig.product.cat[1] || seajs.use("APP_ROOT/js/qiang");
+    else if (b && b.indexOf("is3GRealName") > -1) {
+        var c = "//eve.jd.com/redirect.action?wid=" + pageConfig.product.skuid + "&btype=16&pid=" + currentAreaInfo.currentProvinceId + "&cid=" + currentAreaInfo.currentCityId;
+        pageConfig.M_addToCart.enabled(c)
+    }
+}
+
+ "selector": "input[name='text']",
+    "value": function($e, data) {
+      return "Hello from the value function!";
+    }
+
+
+var rules = [{
+  "url": /tutorial\/tour-6\.html/,
+  "name": "Tour 6 : Clicking on things",
+  "fields": [{
+    "selector": "input[type=text]",
+    "value": "filled by the rule"
+  }, {
+    "selector": "input[type=submit]",
+    "value": function($e, data) {
+      $e.trigger("click");
+    }
+  }]
+}
+];
+
+{
+    "selector": "input[type=submit]",
+    "value": Libs.h.click
+    }]
+
+
+##### 处理地址, 加一个Key
+function showUsualAddressList(){
+	var skuId = $("#skuId").val();
+	var actionUrl = SECKILL_DOMAIN + "async/getUsualAddressList.action?skuId="+skuId;
+	jQuery.ajax( {
+		type : "POST",
+		dataType : "json",
+		url : actionUrl,
+		data : null,
+		cache : false,
+		success : function(dataResult) {
+			if (isUserNotLogin(dataResult)) {
+				goToLogin();
+				return;
+			}
+			if(!isEmpty(dataResult)){
+				var addressListHtml="";
+				var defaultId = 0;
+				if(dataResult.length>5){
+					$("#moreAddressDiv").show();
+				}else{
+					$("#moreAddressDiv").hide();
+				}
+				for(var i=0;i<dataResult.length;i++){
+					var addressInfo = dataResult[i];
+					if(i==0){
+						addressListHtml +="<div id=\"addressItem_"+addressInfo.id+"\" class=\"item  item-selected\" index=\""+i+"\">";
+						addressListHtml +="<input type=\"radio\" value='"+addressInfo.id+"' onclick=\"choseUsualAddress('"+addressInfo.id+"')\" id=\"addressInfo_"+addressInfo.id+"\" checked=\"true\" name=\"consignee_radio\" class=\"hookbox\">";
+						defaultId =addressInfo.id;
+					}else{
+						if(i>=5){
+							addressListHtml +="<div id=\"addressItem_"+addressInfo.id+"\" class=\"item\" style=\"display:none\" index=\""+i+"\">";
+						}else{
+							addressListHtml +="<div id=\"addressItem_"+addressInfo.id+"\" class=\"item\" index=\""+i+"\">";
+						}
+						addressListHtml +="<input type=\"radio\" value='"+addressInfo.id+"' onclick=\"choseUsualAddress('"+addressInfo.id+"')\" id=\"addressInfo_"+addressInfo.id+"\" name=\"consignee_radio\" class=\"hookbox\">";
+					}
+					
+					addressListHtml +="<label for=\"addressInfo_"+addressInfo.id+"\">";
+					addressListHtml +="<b>"+addressInfo.name+"</b>&nbsp; "+addressInfo.provinceName+addressInfo.cityName+addressInfo.countyName+addressInfo.townName+addressInfo.addressDetail
+						+" &nbsp; "+ addressInfo.mobileWithXing +" &nbsp;";
+					addressListHtml +="</label>";
+					addressListHtml +="<input type=\"hidden\" id=\"name_hidden_"+addressInfo.id+"\" value=\""+addressInfo.name+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"provinceId_hidden_"+addressInfo.id+"\" value=\""+addressInfo.provinceId+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"cityId_hidden_"+addressInfo.id+"\" value=\""+addressInfo.cityId+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"countyId_hidden_"+addressInfo.id+"\" value=\""+addressInfo.countyId+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"townId_hidden_"+addressInfo.id+"\" value=\""+addressInfo.townId+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"addressDetail_hidden_"+addressInfo.id+"\" value=\""+addressInfo.addressDetail+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"mobile_hidden_"+addressInfo.id+"\" value=\""+addressInfo.mobileWithXing+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"mobile_key_hidden_"+addressInfo.id+"\" value=\""+addressInfo.mobileKey+"\" />";
+					addressListHtml +="<input type=\"hidden\" id=\"email_hidden_"+addressInfo.id+"\" value=\""+addressInfo.email+"\" />";
+					addressListHtml +="</div>";
+				}
+				$("#consignee-list").html(addressListHtml);
+				$("#consignee-list").show();
+				$("#use-new-address").show();
+				choseUsualAddress(defaultId);
+			}else{
+				$("#consignee-list").html("");
+				$("#consignee-list").hide();
+				$("#use-new-address").hide();
+			}
+		},
+		error : function(XMLHttpResponse) {
+			return false;
+		}
+	});
+}
+
+https://marathon.jd.com/async/getUsualAddressList.action?skuId=3867761
+
+POST /async/getUsualAddressList.action?skuId=3867761 HTTP/1.1
+Host: marathon.jd.com
+Connection: keep-alive
+Content-Length: 0
+Accept: application/json, text/javascript, */*; q=0.01
+Origin: https://marathon.jd.com
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36
+Referer: https://marathon.jd.com/seckill/seckill.action?skuId=3867761&num=1&rid=1489111551
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4
+Cookie: __jdv=122270672|direct|-|none|-|1488872900806; user-key=6bccc5fb-6e85-4c40-be5e-06f7852eccc2; cn=4; ipLoc-djd=2-2820-51972-0; ipLocation=%u4E0A%u6D77; areaId=2; 3AB9D23F7A4B3C9B=N7H4SGYOYCO2GJ25S5Z6NVE7K5OASVLKSOG24JYTYL4HVTJQXUWZ2N26QCKY5KDBZXF6DS3JBSLA62GQVEODAN5S2M; TrackID=1TLTXdnY_XP9GAVc9m7CDuyegnrgOQqv2jzgYk_CiumquBFmGMIxdGg637UCilO6axz1BJsuEONZLI_VeGs-P4sQnZ5mswlCKtAck4Ypr2qumpzwE20m77pzKT0hWzd33; pinId=ygXKB3Vjj-d0AtHpquZPnrV9-x-f3wj7; pin=jd_48e5ed26d84b0; unick=jd_522569128; _tp=mUd3Pfu540VA1MvE22zN4mFCsnaf3ZExgb%2FWqvMCUto%3D; _pst=jd_48e5ed26d84b0; ceshi3.com=000; _jrda=1; _jrdb=1489110075300; thor=4207C28E58777D556EE78C043F446D1BFD99CA01F1D6143E17E3B2394BE62B6FFFBE05D4D978BCF5A82A64846190C8ACC5929289F8CEB81543FDFD6CAA1C83B312077F740BF352F209BFEA2A13308ECEBB333E77AE4AD176561019D9BE8DA6E01F3E3C4AA84ACFDF8676177A5CFECC6BFB0444BE2B5A7677FE5B7B0597FC3B2A673C87422D026CE24E126DE88408FEB78CE256A15FA88512D08B771D69D55B63; __jda=122270672.1488872900805359699161.1488872901.1489065245.1489109800.8; __jdb=122270672.30.1488872900805359699161|8.1489109800; __jdc=122270672; __jdu=1488872900805359699161; seckillSku=3867761; seckillSid=; seckill3867761=EbxKoioX1qx2tA8FETKrxWK6IqZenYUPZwkw/VIa4FMAhImqVVxqmLLmJUkfxyS37xusjaj5k2ysxG0W/jBb1n4gF4aehjr9OtdUARRnq9tTI1D8q0DcBA==
+
+
+######## 提交
+https://marathon.jd.com/seckill/submitOrder.action?skuId=3867761
+
+POST /seckill/submitOrder.action?skuId=3867761 HTTP/1.1
+Host: marathon.jd.com
+Connection: keep-alive
+Content-Length: 603
+Accept: text/plain, */*; q=0.01
+Origin: https://marathon.jd.com
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Referer: https://marathon.jd.com/seckill/seckill.action?skuId=3867761&num=1&rid=1489111551
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4
+Cookie: __jdv=122270672|direct|-|none|-|1488872900806; user-key=6bccc5fb-6e85-4c40-be5e-06f7852eccc2; cn=4; ipLoc-djd=2-2820-51972-0; ipLocation=%u4E0A%u6D77; areaId=2; 3AB9D23F7A4B3C9B=N7H4SGYOYCO2GJ25S5Z6NVE7K5OASVLKSOG24JYTYL4HVTJQXUWZ2N26QCKY5KDBZXF6DS3JBSLA62GQVEODAN5S2M; TrackID=1TLTXdnY_XP9GAVc9m7CDuyegnrgOQqv2jzgYk_CiumquBFmGMIxdGg637UCilO6axz1BJsuEONZLI_VeGs-P4sQnZ5mswlCKtAck4Ypr2qumpzwE20m77pzKT0hWzd33; pinId=ygXKB3Vjj-d0AtHpquZPnrV9-x-f3wj7; pin=jd_48e5ed26d84b0; unick=jd_522569128; _tp=mUd3Pfu540VA1MvE22zN4mFCsnaf3ZExgb%2FWqvMCUto%3D; _pst=jd_48e5ed26d84b0; ceshi3.com=000; _jrda=1; _jrdb=1489110075300; thor=4207C28E58777D556EE78C043F446D1BFD99CA01F1D6143E17E3B2394BE62B6FFFBE05D4D978BCF5A82A64846190C8ACC5929289F8CEB81543FDFD6CAA1C83B312077F740BF352F209BFEA2A13308ECEBB333E77AE4AD176561019D9BE8DA6E01F3E3C4AA84ACFDF8676177A5CFECC6BFB0444BE2B5A7677FE5B7B0597FC3B2A673C87422D026CE24E126DE88408FEB78CE256A15FA88512D08B771D69D55B63; __jda=122270672.1488872900805359699161.1488872901.1489065245.1489109800.8; __jdb=122270672.30.1488872900805359699161|8.1489109800; __jdc=122270672; __jdu=1488872900805359699161; seckill3867761=EbxKoioX1qx2tA8FETKrxWK6IqZenYUPZwkw/VIa4FMAhImqVVxqmLLmJUkfxyS37xusjaj5k2ysxG0W/jBb1n4gF4aehjr9OtdUARRnq9tTI1D8q0DcBA==; seckillSku=3867761; seckillSid=
+
+##########FORM
+orderParam.name=刘俊斌&orderParam.addressDetail=广中西路777弄启迪大厦12楼&orderParam.mobile=13764522569&orderParam.email=&orderParam.provinceId=2&orderParam.cityId=2820&orderParam.countyId=51975&orderParam.townId=&orderParam.paymentType=4&orderParam.password=&orderParam.invoiceTitle=4&orderParam.invoiceContent=1&orderParam.invoiceCompanyName=&orderParam.usualAddressId=138558189&skuId=3867761&num=1&orderParam.provinceName=上海&orderParam.cityName=闸北区&orderParam.countyName=城区&orderParam.townName=&orderParam.codTimeType=3&orderParam.mobileKey=319db3fbbc8f86590a68b1aca44861a1
+
+orderParam.name:刘俊斌
+orderParam.addressDetail:广中西路777弄启迪大厦12楼
+orderParam.mobile:13764522569
+orderParam.email:
+orderParam.provinceId:2
+orderParam.cityId:2820
+orderParam.countyId:51975
+orderParam.townId:
+orderParam.paymentType:4
+orderParam.password:
+orderParam.invoiceTitle:4
+orderParam.invoiceContent:1
+orderParam.invoiceCompanyName:
+orderParam.usualAddressId:138558189
+skuId:3867761
+num:1
+orderParam.provinceName:上海
+orderParam.cityName:闸北区
+orderParam.countyName:城区
+orderParam.townName:
+orderParam.codTimeType:3
+orderParam.mobileKey:319db3fbbc8f86590a68b1aca44861a1
+
+
+第一步: 取得URL, 获得url: "(0)"值
+https://itemko.jd.com/itemShowBtn?skuId=3867761&callback=jQuery2002005&_=1489112267746      
+jQuery2002005({"type":"3","state":"12","url":"//divide.jd.com/user_routing?skuId=3867761&sn=9e0708f12c0681973466aeb903377b72&from=pc"})
+
+
+第二步: 调用URL, 跳转, 打开页面
+
+
+第三步: 调用Post Ajax, 取得mobileKey
+https://marathon.jd.com/async/getUsualAddressList.action?skuId=286077
+
+[{"name":"刘俊斌","id":138458270,"addressDetail":"交通路2245弄5号602室","mobile":"","mobileKey":"d8721d1b036605959c61e260945b7184","provinceId":2,"cityId":2841,"countyId":51980,"townId":0,"provinceName":"上海","cityName":"普陀区","countyName":"城区","email":"","townName":"","mobileWithXing":"137****2569"},{"name":"吴赛娇","id":137972031,"addressDetail":"青塘村青新路18号","mobile":"","mobileKey":"e12e458229d38d486d155ec5280c8346","provinceId":16,"cityId":1303,"countyId":1309,"townId":48782,"provinceName":"福建","cityName":"福州市","countyName":"连江县","email":null,"townName":"敖江镇","mobileWithXing":"137****6551"},{"name":"刘俊斌","id":137820577,"addressDetail":"广中西路777弄启迪大厦12楼","mobile":"","mobileKey":"d8721d1b036605959c61e260945b7184","provinceId":2,"cityId":2820,"countyId":51972,"townId":0,"provinceName":"上海","cityName":"闸北区","countyName":"城区","email":"","townName":"","mobileWithXing":"137****2569"}]
+
+第四步: 调用Submit, 完成调用
+
+
+https://yushou.jd.com/toYuyue.action?sku=4461470&key=22b95fa110853813b6c812f63ba5b9f9
+
+
+CHROME
+https://divide.jd.com/user_routing?skuId=4461472&sn=c998a73bc437f6099329882a62c4c46d&from=pc
+
+
+SAFARI
+https://divide.jd.com/user_routing?skuId=4461472&sn=ec6d83bdb51a0efb6f905f472f18c10c&from=pc
+
+https://itemko.jd.com/itemShowBtn?skuId=4461472&callback=jQuery1346950&_=1489456689311
+
