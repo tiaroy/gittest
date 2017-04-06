@@ -1,9 +1,13 @@
 /*
 * [y] hybris Platform
+<<<<<<< HEAD
 * modify by c4 commit 1
+=======
+* modify c3 commit 2
+>>>>>>> c3
 * Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
 * All rights reserved.
-*
+* modify c3 commit 3
 * This software is the confidential and proprietary information of SAP
 * ("Confidential Information"). You shall not disclose such Confidential
 * Information and shall use it only in accordance with the terms of the
