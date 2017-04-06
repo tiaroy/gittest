@@ -1,10 +1,8 @@
 /*
 * [y] hybris Platform
-<<<<<<< HEAD
 * modify by c4 commit 1
-=======
 * modify c3 commit 2
->>>>>>> c3
+* modify by c5 commit1
 * Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
 * All rights reserved.
 * modify c3 commit 3
