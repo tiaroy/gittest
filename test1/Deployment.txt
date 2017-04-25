@@ -15,6 +15,8 @@ append c11
 3.
 确认无法完成的impex列表  ==>
 
+append c14
+
 4.
 创建local.properties   ==> done
 
